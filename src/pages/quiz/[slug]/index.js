@@ -53,19 +53,19 @@ const QuizSlug = ({ quiz }) => {
     if (store.started) {
       clearInterval(intervalRef.current)
     } else {
-      const startTime = Date.now() - store.timer
+      const currentTime = Date.now() - store.timer
       intervalRef.current = setInterval(() => {
         dispatch({
           type: types.startTimer,
-          payload: Math.floor((Date.now() - startTime) / 1000)
+          payload: Math.floor((Date.now() - currentTime) / 1000)
         })
       }, 1000)
     }
     dispatch({ type: types.setStarted })
   }
 
-  // console.log("DATAAAA::", store.quiz);
-  // TODO: implementar cronometro de tiempo y crear QUIZ
+  // TODO: QUIZ Empezar a crear funcionalidades para el QUIZ,
+  // TODO: Se necesita que al hacer click en una opcion si score === 1 = true : false y que cambie a la siguiente tarjeta
   return (
     <div className={styles.container}>
       <Head>
