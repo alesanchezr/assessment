@@ -1,6 +1,6 @@
 // TODO: eliminar axios del proyecto?
 // import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { StoreContext } from "@store/StoreProvider";
 import { types } from "@store/reducer";
 // after relative path ../../../store/StoreProvider
@@ -34,17 +34,9 @@ export const getStaticProps = async (context) => {
   };
 };
 
-const increment = (score) => {
-  return score + 1;
-};
-const setStarted = (started) => {
-  return !started
-}
-
 const QuizSlug = ({ quiz }) => {
   const [store, dispatch] = useContext(StoreContext);
-  const correctMsg = store.templates?.correct;
-  const incorrectMsg = store.templates?.incorrect;
+  const intervalRef = useRef(null)
 
   useEffect(() => {
     dispatch({
@@ -53,7 +45,26 @@ const QuizSlug = ({ quiz }) => {
     });
   }, []);
 
-  console.log("DATAAAA::", store.quiz);
+
+  // console.log("dateNOW", Date.now() - store.timer)
+
+  // TODO: Si tengo tiempo, podria transformar segundos a minutos
+  const handleStartQuiz = () => {
+    if (store.started) {
+      clearInterval(intervalRef.current)
+    } else {
+      const startTime = Date.now() - store.timer
+      intervalRef.current = setInterval(() => {
+        dispatch({
+          type: types.startTimer,
+          payload: Math.floor((Date.now() - startTime) / 1000)
+        })
+      }, 1000)
+    }
+    dispatch({ type: types.setStarted })
+  }
+
+  // console.log("DATAAAA::", store.quiz);
   // TODO: implementar cronometro de tiempo y crear QUIZ
   return (
     <div className={styles.container}>
@@ -70,12 +81,7 @@ const QuizSlug = ({ quiz }) => {
             <div className={styles.grid}>
               <button
                 className={styles.start}
-                onClick={() => {
-                  dispatch({
-                    type: types.setStarted,
-                    payload: setStarted(store.started),
-                  });
-                }}
+                onClick={handleStartQuiz}
               >
                 <h2>Start</h2>
               </button>
