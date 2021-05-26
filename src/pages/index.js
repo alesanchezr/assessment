@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styles from "@styles/Home.module.css";
-// after relPath = ../../styles/Home.module.css
 import Link from "next/link";
 import { StoreContext } from "@store/StoreProvider";
 import { useContext, useEffect } from "react";

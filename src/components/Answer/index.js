@@ -1,17 +1,21 @@
 import { StoreContext } from "@store/StoreProvider";
 import styles from "@styles/Home.module.css";
-import { useContext } from "react";
-import { types } from "@store/reducer";
+import { useContext, useRef } from "react";
 
-export const Answer = () => {
+export const Answer = (buttonScore) => {
   const [store, dispatch] = useContext(StoreContext);
-  // const question = store.questions;
 
   return (
-    <div className={styles.container} style={{ width: "100%", position: 'absolute', zIndex: 1, backgroundColor:"#FFFFFF"}}>
-      <h2 className={styles.quiz_title}>
-        {store.selectedAnswer}
-      </h2>
+    <div className={styles.Answer_Change}>
+      <h2 className={styles.quiz_title}>{store.selectedAnswer}</h2>
+
+      <style jsx>
+        {`
+          transition: linear 0.5s;
+          background-color: ${store.correct ===true ? "#45a755" : "#A74545" };
+          
+        `}
+      </style>
     </div>
   );
 };

@@ -17,9 +17,20 @@ const quizCard = () => {
 
   const verifyAnswer = (score) => {
     if(score === 1){
+
+      dispatch({ 
+        type: types.setGetCorrect,
+        payload: true
+      })
       dispatch({
         type: types.setScore
       })
+      setTimeout(() => {
+        dispatch({ 
+          type: types.setGetCorrect,
+          payload: false
+        })
+      }, 1300)
       return getRandom("correct")
     } else {
       return getRandom("incorrect")
@@ -45,8 +56,6 @@ const quizCard = () => {
     }, 1300)
   }
 
-  // console.log("SELECTED ANSWERRRRR::::", store.selectedAnswer)
-
   // TODO: e.target.value será util para MULTYSELECT
   const selectAnswer = (score) => {
     getResponse(score)
@@ -66,9 +75,10 @@ const quizCard = () => {
 
   return (
     <div className={styles.container}>
-      {store.getAnswer === true ? <Answer/> : null}
 
-    {store.finalScore === false ? (
+    {store.getAnswer === true ? <Answer /> : null}
+
+    {store.showFinalScore === false ? (
       <>
         <h1 className={styles.quiz_title}>
           {questions[currentQuestion].title}
@@ -76,7 +86,6 @@ const quizCard = () => {
 
         <div className={styles.quiz_grid}>
           {Array.isArray(questions[currentQuestion].options) && questions[currentQuestion].options.map(option => {
-            // const setAnswerScore = 
             return (
               <button onClick={() => selectAnswer(option.score)} key={option.id} className={styles.quiz_card}>
                 <h2 style={{fontWeight: "normal"}}>{option.title} &rarr;</h2>

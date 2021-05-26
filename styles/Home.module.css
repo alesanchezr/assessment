@@ -149,21 +149,18 @@
   color: #0070f3;
   border-color: #0070f3;
 }
-.quiz_timer {
+.quiz_timer, .currentQuestion {
   position: absolute;
   top: 20px;
   right: 80px;
   font-size: 25px;
 }
-
-/* .quiz_card: */
-/* 
-.card:hover,
-.start:focus,
-.start:active {
-  color: #0070f3;
-  border-color: #0070f3;
-} */
+.currentQuestion {
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  font-size: 25px;
+}
 
 .card h2 {
   margin: 0 0 1rem 0;
@@ -186,4 +183,21 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+
+.Answer_Change{
+  transition: linear 0.5s;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: #FFFFFF;
+  height:100vh;
+
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

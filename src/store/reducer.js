@@ -9,6 +9,7 @@ export const types = {
   setCurrentQuestion: "setCurrentQuestion",
   setSelectedAnswer: "Selected_Answer",
   setGetAnswer: "setGetAnswer",
+  setGetCorrect: "setGetCorrect",
   setFinishedQuiz: "setFinishedQuiz",
   setFinalScore: "setFinalScore",
   resetCurrentQuestion: "resetCurrentQuestion"
@@ -23,7 +24,8 @@ export const initialStore = {
   timerRef: null,
   currentQuestion: 0,
   getAnswer: false,
-  finalScore: false,
+  correct: false,
+  showFinalScore: false,
   selectedAnswer: "",
   templates: {
       correct: ['That\'s right!','Yes! Maybe you paid attention?','You seem to know most of the anwers','Keep it up!'],
@@ -72,6 +74,11 @@ const storeReducer = (state, action) => {
         ...state,
         getAnswer: action.payload
       }
+    case types.setGetCorrect:
+      return {
+        ...state,
+        correct: action.payload
+      }
     case types.setScore: 
       return {
         ...state,
@@ -86,8 +93,7 @@ const storeReducer = (state, action) => {
     case types.setFinalScore:
       return {
         ...state,
-        finalScore: action.payload,
-        score: state.score
+        showFinalScore: action.payload
       }
     case types.resetCurrentQuestion:
       return {
@@ -95,7 +101,6 @@ const storeReducer = (state, action) => {
         currentQuestion: 0,
         score: 0
       }
-      // finishedQuiz
     default:
       return state
   }
