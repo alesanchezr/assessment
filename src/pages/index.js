@@ -2,18 +2,37 @@ import Head from "next/head";
 import styles from "@styles/Home.module.css";
 // after relPath = ../../styles/Home.module.css
 import Link from "next/link";
+import { StoreContext } from "@store/StoreProvider";
+import { useContext, useEffect } from "react";
+import { types } from "@store/reducer";
 
 export const getStaticProps = async () => {
-
   const res = await fetch(`https://breathecode.herokuapp.com/v1/assessment/`);
   const data = await res.json();
 
-    return {
-      props: {quizList: data}
-    }
+  return {
+    props: { quizList: data },
+  };
 };
 
-export default function Home({quizList}) {
+export default function Home({ quizList }) {
+  const [store, dispatch] = useContext(StoreContext);
+
+  const isBrowser = typeof window !== "undefined";
+  const currentWindow = isBrowser ? window.location.pathname : null;
+
+  // Stops the timer and restarts it when come back to the start
+  useEffect(() => {
+    if (currentWindow !== `/quiz/`) {
+      clearInterval(store.timerRef);
+      dispatch({ type: types.resetTimer });
+      dispatch({ type: types.resetCurrentQuestion });
+      dispatch({ 
+        type: types.setFinalScore,
+        payload: false
+      });
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -46,10 +65,7 @@ export default function Home({quizList}) {
           ) : (
             quizList.map((quiz, i) => {
               return (
-                <Link
-                  key={i}
-                  href={`/quiz/${quiz.slug}`}
-                >
+                <Link key={i} href={`/quiz/${quiz.slug}`}>
                   <a className={styles.card}>
                     <h2>{quiz.slug} &rarr;</h2>
                     <p>{quiz.title}</p>

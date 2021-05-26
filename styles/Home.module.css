@@ -149,6 +149,12 @@
   color: #0070f3;
   border-color: #0070f3;
 }
+.quiz_timer {
+  position: absolute;
+  top: 20px;
+  right: 80px;
+  font-size: 25px;
+}
 
 /* .quiz_card: */
 /* 

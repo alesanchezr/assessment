@@ -3,7 +3,15 @@ export const types = {
   setQuiz: "quiz - prueba",
   setTemplate: "template",
   setStarted: "start - empezar",
-  startTimer: "start_time - iniciar_temporizador"
+  startTimer: "start_timer - iniciar_temporizador",
+  resetTimer: "reset_timer - reiniciar_temporizador",
+  timerRef: "timerRef",
+  setCurrentQuestion: "setCurrentQuestion",
+  selectedAnswer: "Selected_Answer",
+  setGetAnswer: "setGetAnswer",
+  setFinishedQuiz: "setFinishedQuiz",
+  setFinalScore: "setFinalScore",
+  resetCurrentQuestion: "resetCurrentQuestion"
 }
 
 export const initialStore = {
@@ -12,6 +20,11 @@ export const initialStore = {
   quiz: null,
   totalTime: 0,
   timer: 0,
+  timerRef: null,
+  currentQuestion: 0,
+  getAnswer: false,
+  finalScore: false,
+  selectedAnswer: "",
   templates: {
       correct: ['That\'s right!','Yes! Maybe you paid attention?','You seem to know most of the anwers','Keep it up!'],
       incorrect: ['Uhh no.', 'Nop, you are wrong dude.', 'Mmmmm... almost there, but no.', 'No! Have you been paying attention?']
@@ -31,6 +44,34 @@ const storeReducer = (state, action) => {
         ...state,
         timer: action.payload
       }
+    case types.timerRef:
+      return {
+        ...state,
+        timerRef: action.payload
+      }
+    case types.resetTimer:
+      return {
+        ...state,
+        timer: 0,
+        started: false
+      }
+
+    case types.setCurrentQuestion:
+      return {
+        ...state,
+        currentQuestion: state.currentQuestion + 1
+      }
+    case types.selectedAnswer:
+      return {
+        ...state,
+        selectedAnswer: action.payload
+      }
+      // setGetAnswer
+    case types.setGetAnswer:
+      return {
+        ...state,
+        getAnswer: action.payload
+      }
     case types.setScore: 
       return {
         ...state,
@@ -41,6 +82,18 @@ const storeReducer = (state, action) => {
         ...state,
         quiz: action.payload
       }
+
+    case types.setFinalScore:
+      return {
+        ...state,
+        finalScore: action.payload
+      }
+    case types.resetCurrentQuestion:
+      return {
+        ...state,
+        currentQuestion: 0
+      }
+      // finishedQuiz
     default:
       return state
   }
