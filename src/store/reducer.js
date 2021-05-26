@@ -1,13 +1,13 @@
 export const types = {
   setScore: "score - puntos",
-  setQuiz: "quiz - prueba",
+  setQuesions: "quiz - prueba",
   setTemplate: "template",
   setStarted: "start - empezar",
   startTimer: "start_timer - iniciar_temporizador",
   resetTimer: "reset_timer - reiniciar_temporizador",
   timerRef: "timerRef",
   setCurrentQuestion: "setCurrentQuestion",
-  selectedAnswer: "Selected_Answer",
+  setSelectedAnswer: "Selected_Answer",
   setGetAnswer: "setGetAnswer",
   setFinishedQuiz: "setFinishedQuiz",
   setFinalScore: "setFinalScore",
@@ -17,7 +17,7 @@ export const types = {
 export const initialStore = {
   started: false,
   score: 0,
-  quiz: null,
+  questions: [],
   totalTime: 0,
   timer: 0,
   timerRef: null,
@@ -61,7 +61,7 @@ const storeReducer = (state, action) => {
         ...state,
         currentQuestion: state.currentQuestion + 1
       }
-    case types.selectedAnswer:
+    case types.setSelectedAnswer:
       return {
         ...state,
         selectedAnswer: action.payload
@@ -75,23 +75,25 @@ const storeReducer = (state, action) => {
     case types.setScore: 
       return {
         ...state,
-        score: action.payload
+        score: state.score + 1
       }
-    case types.setQuiz:
+    case types.setQuesions:
       return {
         ...state,
-        quiz: action.payload
+        questions: action.payload
       }
 
     case types.setFinalScore:
       return {
         ...state,
-        finalScore: action.payload
+        finalScore: action.payload,
+        score: state.score
       }
     case types.resetCurrentQuestion:
       return {
         ...state,
-        currentQuestion: 0
+        currentQuestion: 0,
+        score: 0
       }
       // finishedQuiz
     default:

@@ -36,7 +36,7 @@ const QuizSlug = ({ quiz }) => {
 
   useEffect(() => {
     dispatch({
-      type: types.setQuiz,
+      type: types.setQuesions,
       payload: quiz.questions,
     });
 

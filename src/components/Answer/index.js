@@ -5,7 +5,7 @@ import { types } from "@store/reducer";
 
 export const Answer = () => {
   const [store, dispatch] = useContext(StoreContext);
-  // const question = store.quiz;
+  // const question = store.questions;
 
   return (
     <div className={styles.container} style={{ width: "100%", position: 'absolute', zIndex: 1, backgroundColor:"#FFFFFF"}}>

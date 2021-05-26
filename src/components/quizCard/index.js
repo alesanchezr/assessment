@@ -3,10 +3,11 @@ import styles from "@styles/Home.module.css";
 import { useContext } from "react";
 import { types } from "@store/reducer";
 import Answer from "../Answer"
+import Link from "next/link";
 
 const quizCard = () => {
   const [store, dispatch] = useContext(StoreContext);
-  const question = store.quiz
+  const questions = store.questions
   const currentQuestion = store.currentQuestion
 
   const getRandom = (type) => {
@@ -14,12 +15,27 @@ const quizCard = () => {
     return store.templates[type][index];
   }
 
+  const verifyAnswer = (score) => {
+    if(score === 1){
+      dispatch({
+        type: types.setScore
+      })
+      return getRandom("correct")
+    } else {
+      return getRandom("incorrect")
+    }
+  }
+
   // TODO: enable function when option is selected
 
-  const getResponse = () => {
+  const getResponse = (score) => {
     dispatch({
       type: types.setGetAnswer,
       payload: true
+    })
+    dispatch({
+      type: types.setSelectedAnswer,
+      payload: verifyAnswer(score)
     })
     setTimeout(() => {
       dispatch({ 
@@ -29,20 +45,13 @@ const quizCard = () => {
     }, 1300)
   }
 
-  // Usar if para lenght
+  // console.log("SELECTED ANSWERRRRR::::", store.selectedAnswer)
 
-  // const nextQuestion = () => {
-  //   currentQuestion + 1
-  // }
+  // TODO: e.target.value será util para MULTYSELECT
+  const selectAnswer = (score) => {
+    getResponse(score)
 
-  const selectAnswer = () => {
-    dispatch({
-      type: types.selectedAnswer,
-      payload: getRandom("correct")
-    })
-    getResponse()
-
-    if(currentQuestion < question.length - 1){
+    if(currentQuestion < questions.length - 1){
       dispatch({ 
         type: types.setCurrentQuestion
       })
@@ -54,22 +63,6 @@ const quizCard = () => {
       })
     }
   }
- 
-  
-  // const renderError = () => {
-  //   if(!error){ 
-  //     return;
-  //   } else {
-  //     getRandom("error")
-  //   }
-  // }
-  // console.log("ESTAMOS EN CARD", question[0].options)
-
-
-  console.log("QUESTION::", question)
-  console.log("QUESTION_LENGTH::", question.length)
-  // console.log("CURRENT_QUESTION::", question[currentQuestion])
-  // console.log("ANSWER_OPTIONS", question[0].options)
 
   return (
     <div className={styles.container}>
@@ -78,21 +71,38 @@ const quizCard = () => {
     {store.finalScore === false ? (
       <>
         <h1 className={styles.quiz_title}>
-          {question[currentQuestion].title}
+          {questions[currentQuestion].title}
         </h1>
 
         <div className={styles.quiz_grid}>
-          {Array.isArray(question[0].options) && question[0].options.map(option => {
+          {Array.isArray(questions[currentQuestion].options) && questions[currentQuestion].options.map(option => {
+            // const setAnswerScore = 
             return (
-              <button onClick={selectAnswer} key={option.id} className={styles.quiz_card}>
-                <h2>{option.title} &rarr;</h2>
+              <button onClick={() => selectAnswer(option.score)} key={option.id} className={styles.quiz_card}>
+                <h2 style={{fontWeight: "normal"}}>{option.title} &rarr;</h2>
               </button>
             )
           })}
         </div>
       </>
     ) : (
-      <h1>Finished time: {store.timer} Sec</h1>
+      <>
+      <Link href={"/"} >
+       <a style={{position:"absolute", fontSize: "25px", top: 50, left: 80 }}>
+        Back to Home
+      </a> 
+      </Link>
+
+      <span style={{fontSize: "75px", margin: "20px 0"}}>
+        {Math.floor(((store.score) / questions.length) * 100)}% accuracy
+      </span>
+      <span style={{fontSize: "30px", margin: "20px 0"}}>
+        Your Score: {store.score} / {questions.length}<br/>
+      </span>
+      <span style={{fontSize: "30px", margin: "20px 0"}}>
+        Finished in: {store.timer} Seconds
+      </span>
+      </>
     )}
     </div>
   );
