@@ -87,8 +87,13 @@ const quizCard = () => {
         <div className={styles.quiz_grid}>
           {Array.isArray(questions[currentQuestion].options) && questions[currentQuestion].options.map(option => {
             return (
-              <button onClick={() => selectAnswer(option.score)} key={option.id} className={styles.quiz_card}>
-                <h2 style={{fontWeight: "normal"}}>{option.title} &rarr;</h2>
+              <button 
+                key={option.id} 
+                onClick={() => selectAnswer(option.score)} 
+                className={styles.quiz_card}>
+                <h2 style={{fontWeight: "normal"}}>
+                  {option.title} 
+                </h2>
               </button>
             )
           })}
