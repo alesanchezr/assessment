@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { StoreContext } from "@store/StoreProvider";
 import styles from "@styles/Home.module.css";
-import checkBox from "@styles/multiselect.module.css";
+import checkBoxStyle from "@styles/multiselect.module.css";
 import { useContext } from "react";
 import { types } from "@store/reducer";
 import Answer from "../Answer"
@@ -11,7 +11,6 @@ const QuizCard = () => {
   const [store, dispatch] = useContext(StoreContext);
   const questions = store.questions
   const currentQuestion = store.currentQuestion
-  let boxes = document.getElementsByName("isMultiselect");
 
   const getRandom = (type) => {
     const index = Math.floor(Math.random() * store.templates[type].length);
@@ -64,14 +63,12 @@ const QuizCard = () => {
     }, 1300)
   }
 
+  let boxes = document.getElementsByName("isMultiselect");
   let multiselection = []
-  console.log("CAJAS::", boxes)
   var boxesArr = Array.prototype.slice.call(boxes, 0);
   let checkedBoxes
 
-  console.log("BOXESSS__", boxesArr)
   const verifyCurrentCheckbox = () => {
-
       checkedBoxes = boxesArr.filter((checkbox) => {
         return checkbox.checked;
       });
@@ -83,10 +80,8 @@ const QuizCard = () => {
       type: types.setMultiAnswerSelection,
       payload: multiselection
     })
-
   }
 
-  // TODO: e.target.value será util para MULTYSELECT
   const selectAnswer = (score) => {
     getResponse(score)
 
@@ -107,10 +102,10 @@ const QuizCard = () => {
     let verifyError = store.multiAnswerSelection.find(score => score === 0)
 
     if(verifyError === 0) {
-      console.log("INCORRECT", verifyError)
+      // console.log("INCORRECT", verifyError)
       return selectAnswer(verifyError)
     } else {
-      console.log("CORRECTO?", 1)
+      // console.log("CORRECTO?", 1)
       return selectAnswer(1)
     }
   }
@@ -140,16 +135,16 @@ const QuizCard = () => {
                   </button>
                 ) : questions[currentQuestion].question_type === "MULTISELECT" ? (
                   <>
-                    <label className={checkBox.multiSelect_label}>
+                    <label className={checkBoxStyle.multiSelect_label}>
 
                       <input
                         value={option.score}
                         name='isMultiselect'
                         type='checkbox'
-                        onChange={(e) => verifyCurrentCheckbox()}
-                        className={checkBox.buton_input}
+                        onChange={() => verifyCurrentCheckbox()}
+                        className={checkBoxStyle.buton_input}
                       />
-                      <h2 className={checkBox.button_span} style={{ fontWeight: "normal" }}>
+                      <h2 className={checkBoxStyle.button_span} style={{ fontWeight: "normal" }}>
                         {option.title}
                       </h2>
                     </label>
@@ -165,17 +160,17 @@ const QuizCard = () => {
               {store.multiAnswerSelection.length <= 1 ? (
                 <button
                   disabled
-                  className={styles.quiz_card}
+                  className={checkBoxStyle.multiSelect_SubmitButton}
                   style={{ textAlign: "center" }}
                 >
                   <h2 style={{ fontWeight: "normal" }}>
-                    Select more than 1 options
+                    Select 2 or more options
                   </h2>
                 </button>
               ) : (
                 <button
                   onClick={() => submitMultiselect()}
-                  className={styles.quiz_card}
+                  className={checkBoxStyle.multiSelect_SubmitButton}
                   style={{ textAlign: "center" }}
                 >
                   <h2 style={{ fontWeight: "normal" }}>
