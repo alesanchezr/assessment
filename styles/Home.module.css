@@ -145,7 +145,7 @@
 }
 
 .quiz_card:hover, .start:hover, .card:hover,
-.quiz_card:focus, .start:focus, .card:focus,
+/* .quiz_card:focus, .start:focus, .card:focus, */
 .quiz_card:active, .start:active, .card:active {
   color: #0070f3;
   border-color: #0070f3;

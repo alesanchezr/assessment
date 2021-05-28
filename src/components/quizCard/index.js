@@ -125,6 +125,7 @@ const QuizCard = () => {
               <Fragment key={i}  >
                 {questions[currentQuestion].question_type === "SELECT" ? (
                   <button
+                    name='isSelect'
                     onClick={() => selectAnswer(option.score)}
                     className={styles.quiz_card}>
                     <h2 style={{ fontWeight: "normal" }}>
