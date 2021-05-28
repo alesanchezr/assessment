@@ -30,6 +30,10 @@ export default function Home({ quizList }) {
         type: types.setFinalScore,
         payload: false
       });
+      dispatch({
+        type: types.setMultiAnswerSelection,
+        payload: []
+      })
     }
   }, []);
 

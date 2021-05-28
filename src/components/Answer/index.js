@@ -2,7 +2,7 @@ import { StoreContext } from "@store/StoreProvider";
 import styles from "@styles/Home.module.css";
 import { useContext, useRef } from "react";
 
-export const Answer = (buttonScore) => {
+export const Answer = () => {
   const [store, dispatch] = useContext(StoreContext);
 
   return (

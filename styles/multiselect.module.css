@@ -1,0 +1,36 @@
+
+.multiSelect_label {
+  cursor: pointer;
+}
+.multiSelect_label .buton_input[type="checkbox"]{
+  display: none;
+}
+
+.multiSelect_label .button_span {
+  position: relative;
+  display: inline-block;
+  width: 440px;
+  margin: 1rem;
+  padding: 2rem;
+  /* background: #eaeaea; */
+  border: 1px solid #eaeaea;
+  text-align: left;
+  color: #000;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-size: 25px;
+  transition: 0.3s;
+  user-select: none;
+  overflow: hidden;
+}
+.button_span:hover {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.multiSelect_label .buton_input[type="checkbox"]:checked ~ .button_span{
+  /* background: #fff; */
+  color: #0070f3;
+  border: 1px solid #0070f3;
+  box-shadow: 0 2px 20px #0070f3;
+}

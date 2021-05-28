@@ -8,6 +8,7 @@ export const types = {
   timerRef: "timerRef",
   setCurrentQuestion: "setCurrentQuestion",
   setSelectedAnswer: "Selected_Answer",
+  setMultiAnswerSelection: "setMultiAnswerSelection",
   setGetAnswer: "setGetAnswer",
   setGetCorrect: "setGetCorrect",
   setFinishedQuiz: "setFinishedQuiz",
@@ -27,6 +28,7 @@ export const initialStore = {
   correct: false,
   showFinalScore: false,
   selectedAnswer: "",
+  multiAnswerSelection: [],
   templates: {
       correct: ['That\'s right!','Yes! Maybe you paid attention?','You seem to know most of the anwers','Keep it up!'],
       incorrect: ['Uhh no.', 'Nop, you are wrong dude.', 'Mmmmm... almost there, but no.', 'No! Have you been paying attention?']
@@ -67,6 +69,12 @@ const storeReducer = (state, action) => {
       return {
         ...state,
         selectedAnswer: action.payload
+      }
+      // TODO: falta CSS
+    case types.setMultiAnswerSelection:
+      return {
+        ...state,
+        multiAnswerSelection: action.payload
       }
       // setGetAnswer
     case types.setGetAnswer:

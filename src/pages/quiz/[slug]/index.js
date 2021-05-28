@@ -42,8 +42,6 @@ const QuizSlug = ({ quiz }) => {
 
   }, []);
 
-  // currentWindow === `/quiz/${quiz.slug}`
-
   const handleStartQuiz = () => {
     if (store.started) {
       dispatch({
@@ -63,8 +61,6 @@ const QuizSlug = ({ quiz }) => {
     }
   };
 
-  // TODO: QUIZ Empezar a crear funcionalidades para el QUIZ,
-  // TODO: Se necesita que al hacer click en una opcion si score === 1 = true : false y que cambie a la siguiente tarjeta
   return (
     <div className={styles.container}>
       <Head>
@@ -105,10 +101,3 @@ const QuizSlug = ({ quiz }) => {
 };
 
 export default QuizSlug;
-
-{
-  /* <br/>
-<p>{store.score}</p>
-<br/>
-<p>{correctMsg[Math.floor(Math.random() * correctMsg.length)]}</p> */
-}

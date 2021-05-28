@@ -1,14 +1,17 @@
+import { Fragment, useEffect } from "react";
 import { StoreContext } from "@store/StoreProvider";
 import styles from "@styles/Home.module.css";
+import checkBox from "@styles/multiselect.module.css";
 import { useContext } from "react";
 import { types } from "@store/reducer";
 import Answer from "../Answer"
 import Link from "next/link";
 
-const quizCard = () => {
+const QuizCard = () => {
   const [store, dispatch] = useContext(StoreContext);
   const questions = store.questions
   const currentQuestion = store.currentQuestion
+  let boxes = document.getElementsByName("isMultiselect");
 
   const getRandom = (type) => {
     const index = Math.floor(Math.random() * store.templates[type].length);
@@ -53,7 +56,34 @@ const quizCard = () => {
         type: types.setGetAnswer,
         payload: false
       })
+      dispatch({
+        type: types.setMultiAnswerSelection,
+        payload: []
+      })
+      boxesArr.find(i => i.checked === true ? i.checked = false : null)
     }, 1300)
+  }
+
+  let multiselection = []
+  console.log("CAJAS::", boxes)
+  var boxesArr = Array.prototype.slice.call(boxes, 0);
+  let checkedBoxes
+
+  console.log("BOXESSS__", boxesArr)
+  const verifyCurrentCheckbox = () => {
+
+      checkedBoxes = boxesArr.filter((checkbox) => {
+        return checkbox.checked;
+      });
+
+    multiselection = checkedBoxes.map((checkbox) => {
+      return parseInt(checkbox.value);
+    })
+    dispatch({
+      type: types.setMultiAnswerSelection,
+      payload: multiselection
+    })
+
   }
 
   // TODO: e.target.value será util para MULTYSELECT
@@ -73,6 +103,18 @@ const quizCard = () => {
     }
   }
 
+  const submitMultiselect = () => {
+    let verifyError = store.multiAnswerSelection.find(score => score === 0)
+
+    if(verifyError === 0) {
+      console.log("INCORRECT", verifyError)
+      return selectAnswer(verifyError)
+    } else {
+      console.log("CORRECTO?", 1)
+      return selectAnswer(1)
+    }
+  }
+
   return (
     <div className={styles.container}>
 
@@ -85,19 +127,66 @@ const quizCard = () => {
         </h1>
 
         <div className={styles.quiz_grid}>
-          {Array.isArray(questions[currentQuestion].options) && questions[currentQuestion].options.map(option => {
+          {Array.isArray(questions[currentQuestion].options) && questions[currentQuestion].options.map((option, i) => {
             return (
-              <button 
-                key={option.id} 
-                onClick={() => selectAnswer(option.score)} 
-                className={styles.quiz_card}>
-                <h2 style={{fontWeight: "normal"}}>
-                  {option.title} 
-                </h2>
-              </button>
+              <Fragment key={i}  >
+                {questions[currentQuestion].question_type === "SELECT" ? (
+                  <button
+                    onClick={() => selectAnswer(option.score)}
+                    className={styles.quiz_card}>
+                    <h2 style={{ fontWeight: "normal" }}>
+                      {option.title}
+                    </h2>
+                  </button>
+                ) : questions[currentQuestion].question_type === "MULTISELECT" ? (
+                  <>
+                    <label className={checkBox.multiSelect_label}>
+
+                      <input
+                        value={option.score}
+                        name='isMultiselect'
+                        type='checkbox'
+                        onChange={(e) => verifyCurrentCheckbox()}
+                        className={checkBox.buton_input}
+                      />
+                      <h2 className={checkBox.button_span} style={{ fontWeight: "normal" }}>
+                        {option.title}
+                      </h2>
+                    </label>
+                  </>
+                ) : <p>an error occurred, please report to your teacher</p>}
+              </Fragment>
             )
           })}
         </div>
+
+          {questions[currentQuestion].question_type === "MULTISELECT" ? (
+            <>
+              {store.multiAnswerSelection.length <= 1 ? (
+                <button
+                  disabled
+                  className={styles.quiz_card}
+                  style={{ textAlign: "center" }}
+                >
+                  <h2 style={{ fontWeight: "normal" }}>
+                    Select more than 1 options
+                  </h2>
+                </button>
+              ) : (
+                <button
+                  onClick={() => submitMultiselect()}
+                  className={styles.quiz_card}
+                  style={{ textAlign: "center" }}
+                >
+                  <h2 style={{ fontWeight: "normal" }}>
+                    Confirm Selection
+                  </h2>
+                </button>
+              )}
+
+            </>
+          ) : null}
+
       </>
     ) : (
       <>
@@ -122,4 +211,4 @@ const quizCard = () => {
   );
 };
 
-export default quizCard;
+export default QuizCard;
