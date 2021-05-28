@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { StoreContext } from "@store/StoreProvider";
 import styles from "@styles/Home.module.css";
 import checkBoxStyle from "@styles/multiselect.module.css";
@@ -38,8 +38,6 @@ const QuizCard = () => {
       return getRandom("incorrect")
     }
   }
-
-  // TODO: enable function when option is selected
 
   const getResponse = (score) => {
     dispatch({
@@ -174,7 +172,7 @@ const QuizCard = () => {
                   style={{ textAlign: "center" }}
                 >
                   <h2 style={{ fontWeight: "normal" }}>
-                    Confirm Selection
+                    Send
                   </h2>
                 </button>
               )}

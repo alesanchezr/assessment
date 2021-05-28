@@ -41,7 +41,6 @@ const storeReducer = (state, action) => {
       return {
         ...state,
         started: true,
-        // timer: action.payload
       }
     case types.startTimer:
       return {
@@ -70,13 +69,11 @@ const storeReducer = (state, action) => {
         ...state,
         selectedAnswer: action.payload
       }
-      // TODO: falta CSS
     case types.setMultiAnswerSelection:
       return {
         ...state,
         multiAnswerSelection: action.payload
       }
-      // setGetAnswer
     case types.setGetAnswer:
       return {
         ...state,
