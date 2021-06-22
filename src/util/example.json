@@ -35,7 +35,7 @@
       "id": 102,
       "title": "Que resultado devuelve 4?",
       "help_text": null,
-      "question_type": "MULTISELECT",
+      "question_type": "SELECT_MULTIPLE",
       "options": [
         {
           "id": 325,
@@ -61,7 +61,7 @@
       "id": 103,
       "title": "Selecione 1 y 3",
       "help_text": null,
-      "question_type": "MULTISELECT",
+      "question_type": "SELECT_MULTIPLE",
       "options": [
         {
           "id": 328,
