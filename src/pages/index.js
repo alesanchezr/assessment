@@ -6,9 +6,8 @@ import { useContext, useEffect } from "react";
 import { types } from "@store/reducer";
 
 export const getStaticProps = async () => {
-  const res = await fetch(`https://breathecode.herokuapp.com/v1/assessment/`);
+  const res = await fetch(`${process.env.API_HOST}/assessment`);
   const data = await res.json();
-
   return {
     props: { quizList: data },
   };

@@ -17,6 +17,7 @@ const QuizCard = () => {
     return store.templates[type][index];
   }
 
+  // console.log("CURRENT_QUESTIONS", questions)
   const verifyAnswer = (score) => {
     if(score === 1){
 
@@ -103,7 +104,7 @@ const QuizCard = () => {
       // console.log("INCORRECT", verifyError)
       return selectAnswer(verifyError)
     } else {
-      // console.log("CORRECTO?", 1)
+      // console.log("CORRECT", 1)
       return selectAnswer(1)
     }
   }
@@ -132,7 +133,7 @@ const QuizCard = () => {
                       {option.title}
                     </h2>
                   </button>
-                ) : questions[currentQuestion].question_type === "MULTISELECT" ? (
+                ) : questions[currentQuestion].question_type === "SELECT_MULTIPLE" ? (
                   <>
                     <label className={checkBoxStyle.multiSelect_label}>
 
@@ -154,7 +155,7 @@ const QuizCard = () => {
           })}
         </div>
 
-          {questions[currentQuestion].question_type === "MULTISELECT" ? (
+          {questions[currentQuestion].question_type === "SELECT_MULTIPLE" ? (
             <>
               {store.multiAnswerSelection.length <= 1 ? (
                 <button
