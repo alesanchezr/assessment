@@ -5,11 +5,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .main {
   padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.quiz_main {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -50,6 +57,14 @@
   font-size: 4rem;
 }
 
+.quiz_title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 3rem;
+  padding: 0 15%;
+  text-align: center;
+}
+
 .title,
 .description {
   text-align: center;
@@ -74,10 +89,21 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 1200px;
+  /* max-width: 800px; */
   margin-top: 3rem;
 }
 
+.quiz_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  /* max-width: 800px; */
+  margin-top: 3rem;
+}
 .card {
   margin: 1rem;
   padding: 1.5rem;
@@ -87,14 +113,54 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  width: 45%;
+  width: 30%;
+  /* width: 45%; */
+}
+.quiz_card {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  background: #fff;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width: 440px;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
+.start {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width: 220px;
+  text-align: center;
+  /* width: 45%; */
+}
+
+.quiz_card:hover, .start:hover, .card:hover,
+/* .quiz_card:focus, .start:focus, .card:focus, */
+.quiz_card:active, .start:active, .card:active {
   color: #0070f3;
   border-color: #0070f3;
+}
+.quiz_timer, .currentQuestion {
+  position: absolute;
+  top: 20px;
+  right: 80px;
+  font-size: 25px;
+}
+.currentQuestion {
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  font-size: 25px;
 }
 
 .card h2 {
@@ -118,4 +184,21 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+
+.Answer_Change{
+  transition: linear 0.5s;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: #FFFFFF;
+  height:100vh;
+
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
