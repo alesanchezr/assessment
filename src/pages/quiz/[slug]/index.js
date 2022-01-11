@@ -86,7 +86,7 @@ const QuizSlug = ({ quiz }) => {
           <>
             <h1 className={styles.quiz_title}>{quiz.title}</h1>
 
-            <div className={styles.grid}>
+            <div className={styles.grid_start}>
               <button className={styles.start} onClick={handleStartQuiz}>
                 <h2>Start</h2>
               </button>

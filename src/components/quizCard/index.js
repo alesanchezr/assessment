@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { StoreContext } from "@store/StoreProvider";
 import styles from "@styles/Home.module.css";
 import checkBoxStyle from "@styles/multiselect.module.css";
@@ -6,11 +6,13 @@ import { useContext } from "react";
 import { types } from "@store/reducer";
 import Answer from "../Answer"
 import Link from "next/link";
+import { useRouter } from 'next/router'
 
 const QuizCard = () => {
   const [store, dispatch] = useContext(StoreContext);
   const questions = store.questions
   const currentQuestion = store.currentQuestion
+  const router = useRouter()
 
   const getRandom = (type) => {
     const index = Math.floor(Math.random() * store.templates[type].length);
@@ -83,7 +85,6 @@ const QuizCard = () => {
 
   const selectAnswer = (score) => {
     getResponse(score)
-
     if(currentQuestion < questions.length - 1){
       dispatch({ 
         type: types.setCurrentQuestion
@@ -96,6 +97,20 @@ const QuizCard = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if(questions.length <= 0){
+      clearInterval(store.timerRef)
+      dispatch({
+        type: types.setFinalScore,
+        payload: true
+      })
+      
+      setTimeout(() => {
+        router.push('/')
+      }, 5500)
+    }
+  }, [questions])
 
   const submitMultiselect = () => {
     let verifyError = store.multiAnswerSelection.find(score => score === 0)
@@ -114,9 +129,9 @@ const QuizCard = () => {
 
     {store.getAnswer === true ? <Answer /> : null}
 
-    {store.showFinalScore === false ? (
+    {store.showFinalScore === false && questions.length > 0 ? (
       <>
-        <h1 className={styles.quiz_title}>
+        <h1 className={styles.quiz_title_card}>
           {questions[currentQuestion].title}
         </h1>
 
@@ -186,20 +201,35 @@ const QuizCard = () => {
     ) : (
       <>
       <Link href={"/"} >
-       <a style={{position:"absolute", fontSize: "25px", top: 50, left: 80 }}>
+       <a className={styles.backToHome}>
         Back to Home
       </a> 
       </Link>
 
-      <span style={{fontSize: "75px", margin: "20px 0"}}>
-        {Math.floor(((store.score) / questions.length) * 100)}% accuracy
-      </span>
-      <span style={{fontSize: "30px", margin: "20px 0"}}>
-        Your Score: {store.score} / {questions.length}<br/>
-      </span>
-      <span style={{fontSize: "30px", margin: "20px 0"}}>
-        Finished in: {store.timer} Seconds
-      </span>
+      {questions.length === 0 && (
+        <>
+          <span style={{fontSize: "75px", margin: "10rem 10% 20px 10%", textAlign: "center"}}>
+            This quizz not have any questions to answer :c
+          </span>
+          <span style={{fontSize: "30px", fontWeight: "200", margin: "20px 10%", textAlign: "center"}}>
+            redirecting to home...
+          </span>
+        </>
+      )}
+
+      {store.showFinalScore === true && questions.length > 0 && (
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: "10rem 0"}}>
+          <span style={{fontSize: "75px", textAlign: "center", margin: "20px 0"}}>
+            {Math.floor(((store.score) / questions.length) * 100)}% accuracy
+          </span>
+          <span style={{fontSize: "30px", margin: "20px 0"}}>
+            Your Score: {store.score} / {questions.length}<br/>
+          </span>
+          <span style={{fontSize: "30px", margin: "20px 0"}}>
+            Finished in: {store.timer} Seconds
+          </span>
+        </div>
+      )}
       </>
     )}
     </div>

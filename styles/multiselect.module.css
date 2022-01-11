@@ -9,8 +9,8 @@
 .multiSelect_label .button_span {
   position: relative;
   display: inline-block;
-  width: 440px;
-  margin: 1rem;
+  width: -webkit-fill-available !important;
+  margin: 0 20px;
   padding: 2rem;
   /* background: #eaeaea; */
   border: 1px solid #eaeaea;
@@ -46,11 +46,18 @@
   transition: color 0.15s ease, border-color 0.15s ease;
   width: 440px;
 } */
+
+@media (max-width: 768px) {
+  .multiSelect_label .button_span {
+    width: 300px;
+  }
+}
   
 .multiSelect_SubmitButton {
   transition: 0.3s;
   background: #fff;
-  width: 440px;
+  width: 100%;
+  max-width: 300px;
   margin: 1rem;
   padding: 1.5rem;
   border-radius: 10px;
