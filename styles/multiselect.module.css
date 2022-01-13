@@ -52,7 +52,7 @@
     width: 300px;
   }
 }
-  
+ 
 .multiSelect_SubmitButton {
   transition: 0.3s;
   background: #fff;
@@ -71,4 +71,11 @@
   transition: 0.3s;
   color: #0070f3;
   border-color: #0070f3;
+}
+
+@media (max-width: 470px) {
+  .multiSelect_SubmitButton {
+    padding: 0;
+    text-align: center;
+  }
 }
