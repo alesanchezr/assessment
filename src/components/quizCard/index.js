@@ -141,6 +141,7 @@ const QuizCard = () => {
               <Fragment key={i}  >
                 {questions[currentQuestion].question_type === "SELECT" ? (
                   <button
+                    key={option.id}
                     name='isSelect'
                     onClick={() => selectAnswer(option.score)}
                     className={styles.quiz_card}>
@@ -150,8 +151,7 @@ const QuizCard = () => {
                   </button>
                 ) : questions[currentQuestion].question_type === "SELECT_MULTIPLE" ? (
                   <>
-                    <label className={checkBoxStyle.multiSelect_label}>
-
+                    <label className={checkBoxStyle.multiSelect_label} key={option.id}>
                       <input
                         value={option.score}
                         name='isMultiselect'
