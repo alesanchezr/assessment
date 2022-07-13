@@ -200,18 +200,18 @@ const QuizCard = () => {
       </>
     ) : (
       <>
-      <Link href={"/"} >
+      {/* <Link href={"/"} >
        <a className={styles.backToHome}>
         Back to Home
       </a> 
-      </Link>
+      </Link> */}
 
       {questions.length === 0 && (
         <>
-          <span style={{fontSize: "75px", margin: "10rem 10% 20px 10%", textAlign: "center"}}>
+          <span style={{fontSize: "var(--xxl)", margin: "10rem 10% 20px 10%", textAlign: "center"}}>
             This quizz not have any questions to answer :c
           </span>
-          <span style={{fontSize: "30px", fontWeight: "200", margin: "20px 10%", textAlign: "center"}}>
+          <span style={{fontSize: "var(--m)", fontWeight: "200", margin: "20px 10%", textAlign: "center"}}>
             redirecting to home...
           </span>
         </>
@@ -219,13 +219,13 @@ const QuizCard = () => {
 
       {store.showFinalScore === true && questions.length > 0 && (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: "10rem 0"}}>
-          <span style={{fontSize: "75px", textAlign: "center", margin: "20px 0"}}>
+          <span style={{fontSize: "var(--xxl)", textAlign: "center", margin: "20px 0"}}>
             {Math.floor(((store.score) / questions.length) * 100)}% accuracy
           </span>
-          <span style={{fontSize: "30px", margin: "20px 0"}}>
+          <span style={{fontSize: "var(--m)", margin: "20px 0"}}>
             Your Score: {store.score} / {questions.length}<br/>
           </span>
-          <span style={{fontSize: "30px", margin: "20px 0"}}>
+          <span style={{fontSize: "var(--m)", margin: "20px 0"}}>
             Finished in: {store.timer} Seconds
           </span>
         </div>
