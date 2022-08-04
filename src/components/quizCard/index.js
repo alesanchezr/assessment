@@ -145,7 +145,7 @@ const QuizCard = () => {
                     name='isSelect'
                     onClick={() => selectAnswer(option.score)}
                     className={styles.quiz_card}>
-                    <h2 style={{ fontWeight: "normal" }}>
+                    <h2 className={styles.buttonTextSelector}>
                       {option.title}
                     </h2>
                   </button>

@@ -88,7 +88,7 @@ const QuizSlug = ({ quiz }) => {
 
             <div className={styles.grid_start}>
               <button className={styles.start} onClick={handleStartQuiz}>
-                <h2>Start</h2>
+                <h2 style={{margin: "5px 0"}}>Start</h2>
               </button>
             </div>
           </>
