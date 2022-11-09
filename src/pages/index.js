@@ -85,7 +85,7 @@ export default function Home({ quizList }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by Breathe Code
+          Powered by 4Geeks.com
         </a>
       </footer>
     </div>
